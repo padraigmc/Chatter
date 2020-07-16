@@ -15,12 +15,14 @@ public class OutputThread extends Thread{
     }
 
     public void run() {
-
-        try {
-            DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-            out.writeUTF(userInput.nextLine());
-        } catch (IOException e) {
-            // catch
+        DataOutputStream out;
+        while (true) {
+            try {
+                out = new DataOutputStream(socket.getOutputStream());
+                out.writeUTF(userInput.nextLine());
+            } catch (IOException e) {
+                break;
+            }
         }
     }
 }
