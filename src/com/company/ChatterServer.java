@@ -8,19 +8,21 @@ public class ChatterServer extends Thread {
 
     public ChatterServer(int port) throws IOException {
         serverSocket = new ServerSocket(port);
-        serverSocket.setSoTimeout(10000);
+        serverSocket.setSoTimeout(90000);
     }
 
     public void run() {
         while(true) {
             try {
-                System.out.println("Server: Waiting for client on port " + serverSocket.getLocalPort() + "...");
                 Socket server = serverSocket.accept();
 
-                System.out.println("Server: Just connected to " + server.getRemoteSocketAddress());
-                DataInputStream in = new DataInputStream(server.getInputStream());
+                //System.out.println("You're connected to " + server.getRemoteSocketAddress() + "\n------------------------------------------------");
+                //DataInputStream in = new DataInputStream(server.getInputStream());
+                //System.out.println(in.readUTF());
 
-                System.out.println(in.readUTF());
+                Thread inputThread = new InputThread(server);
+                inputThread.start();
+
                 DataOutputStream out = new DataOutputStream(server.getOutputStream());
                 out.writeUTF("Server: Thank you for connecting to " + server.getLocalSocketAddress() + "\nGoodbye!");
                 server.close();

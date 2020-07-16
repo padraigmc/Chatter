@@ -17,10 +17,14 @@ public class ChatterClient {
             DataOutputStream out = new DataOutputStream(outToServer);
 
             out.writeUTF("Client: Hello from " + client.getLocalSocketAddress());
-            InputStream inFromServer = client.getInputStream();
-            DataInputStream in = new DataInputStream(inFromServer);
 
-            System.out.println("Client: Server says " + in.readUTF());
+            //InputStream inFromServer = client.getInputStream();
+            //DataInputStream in = new DataInputStream(inFromServer);
+            //System.out.println("Client: Server says " + in.readUTF());
+
+            Thread inputThread = new InputThread(client);
+            inputThread.start();
+
             client.close();
         } catch (IOException e) {
             e.printStackTrace();
