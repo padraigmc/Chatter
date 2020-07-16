@@ -14,21 +14,19 @@ public class ChatterServer extends Thread {
     public void run() {
         while(true) {
             try {
-                System.out.println("Waiting for client on port " +
-                        serverSocket.getLocalPort() + "...");
+                System.out.println("Server: Waiting for client on port " + serverSocket.getLocalPort() + "...");
                 Socket server = serverSocket.accept();
 
-                System.out.println("Just connected to " + server.getRemoteSocketAddress());
+                System.out.println("Server: Just connected to " + server.getRemoteSocketAddress());
                 DataInputStream in = new DataInputStream(server.getInputStream());
 
                 System.out.println(in.readUTF());
                 DataOutputStream out = new DataOutputStream(server.getOutputStream());
-                out.writeUTF("Thank you for connecting to " + server.getLocalSocketAddress()
-                        + "\nGoodbye!");
+                out.writeUTF("Server: Thank you for connecting to " + server.getLocalSocketAddress() + "\nGoodbye!");
                 server.close();
 
             } catch (SocketTimeoutException s) {
-                System.out.println("Socket timed out!");
+                System.out.println("Server: Socket timed out!");
                 break;
             } catch (IOException e) {
                 e.printStackTrace();
