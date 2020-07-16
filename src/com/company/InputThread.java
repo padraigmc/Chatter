@@ -21,7 +21,7 @@ public class InputThread extends Thread {
             try {
                 availableBytes = dataInputStream.available();
                 if (availableBytes > 0) {
-                    System.out.println(serverName + ": " + dataInputStream.readUTF());
+                    System.out.println("Anon: " + dataInputStream.readUTF());
                 }
             } catch (IOException e) {
                 break;

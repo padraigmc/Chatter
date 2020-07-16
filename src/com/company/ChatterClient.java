@@ -13,10 +13,10 @@ public class ChatterClient {
             Socket client = new Socket(serverName, port);
 
             System.out.println("Client: Just connected to " + client.getRemoteSocketAddress());
-            OutputStream outToServer = client.getOutputStream();
-            DataOutputStream out = new DataOutputStream(outToServer);
+            //OutputStream outToServer = client.getOutputStream();
+            //DataOutputStream out = new DataOutputStream(outToServer);
 
-            out.writeUTF("Client: Hello from " + client.getLocalSocketAddress());
+            //out.writeUTF("Client: Hello from " + client.getLocalSocketAddress());
 
             //InputStream inFromServer = client.getInputStream();
             //DataInputStream in = new DataInputStream(inFromServer);
@@ -25,7 +25,10 @@ public class ChatterClient {
             Thread inputThread = new InputThread(client);
             inputThread.start();
 
-            client.close();
+            Thread outputThread = new OutputThread(client);
+            outputThread.start();
+
+            //client.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

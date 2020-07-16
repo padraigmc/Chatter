@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class OutputThread {
+public class OutputThread extends Thread{
     private Socket socket;
     private Scanner userInput;
 

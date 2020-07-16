@@ -16,16 +16,19 @@ public class ChatterServer extends Thread {
             try {
                 Socket server = serverSocket.accept();
 
-                //System.out.println("You're connected to " + server.getRemoteSocketAddress() + "\n------------------------------------------------");
+                System.out.println("You're connected to " + server.getRemoteSocketAddress() + "\n------------------------------------------------");
                 //DataInputStream in = new DataInputStream(server.getInputStream());
                 //System.out.println(in.readUTF());
 
                 Thread inputThread = new InputThread(server);
                 inputThread.start();
 
-                DataOutputStream out = new DataOutputStream(server.getOutputStream());
-                out.writeUTF("Server: Thank you for connecting to " + server.getLocalSocketAddress() + "\nGoodbye!");
-                server.close();
+                Thread outputThread = new OutputThread(server);
+                outputThread.start();
+
+                //DataOutputStream out = new DataOutputStream(server.getOutputStream());
+                //out.writeUTF("Server: Thank you for connecting to " + server.getLocalSocketAddress() + "\nGoodbye!");
+                //server.close();
 
             } catch (SocketTimeoutException s) {
                 System.out.println("Server: Socket timed out!");
