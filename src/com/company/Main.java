@@ -1,5 +1,6 @@
 package com.company;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
@@ -20,7 +21,12 @@ public class Main {
                 ChatterClient.main(new String[]{IPAddress, "6066"});
                 break;
             } else if (role.equals("n")) {
-                ChatterServer.main(new String[]{"6066"});
+                try {
+                    Thread t = new ChatterServer(6066);
+                    t.start();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 break;
             }
         }
