@@ -12,19 +12,34 @@ public class Main {
         Scanner uInput = new Scanner(System.in);
 
         while (true) {
-            System.out.println("Enter username to begin logging in. Enter '0' to register.");
-            String role = uInput.nextLine();
+            System.out.println("--------------------------------------------------------------------------------------------------");
+            System.out.println("1: Login");
+            System.out.println("2: Register");
+            System.out.println("--------------------------------------------------------------------------------------------------");
+            String action = uInput.nextLine();
 
-            switch (role) {
-                case "9":
+            switch (action) {
+                case "1":
+                    Login.login_user();
+                    break;
+
+                case "2":
                     Register.register_user();
                     break;
 
-
                 default:
-                    // test if username exists - break if not, otherwise query user for password
+                    // catch all for unsupported characters
                     break;
             }
+
+
+
+
+
+
+
+
+
 
             /*
             if (role.equals("y")) {

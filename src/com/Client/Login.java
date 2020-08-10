@@ -1,24 +1,24 @@
 package com.Client;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+        import java.io.BufferedReader;
+        import java.io.DataOutputStream;
+        import java.io.IOException;
+        import java.io.InputStreamReader;
+        import java.net.HttpURLConnection;
+        import java.net.URL;
+        import java.nio.charset.StandardCharsets;
+        import java.util.HashMap;
+        import java.util.Map;
+        import java.util.Scanner;
 
-public class Register {
+public class Login {
 
-    private static final String REGISTER_URL = "http://127.0.0.1:80/Chatter-Server/register.php";
+    private static final String REGISTER_URL = "http://127.0.0.1:80/Chatter-Server/login.php";
 
-    public static boolean register_user() throws IOException {
+    public static boolean login_user() throws IOException {
 
         Scanner uInput = new Scanner(System.in);
-        String username, password, passwordConfirm;
+        String username, password;
 
         System.out.println("Username:");
         username = uInput.nextLine();
@@ -26,20 +26,9 @@ public class Register {
         System.out.println("Password:");
         password = uInput.nextLine();
 
-        System.out.println("Confirm password:");
-        passwordConfirm = uInput.nextLine();
+        password = Hash.encrypt512(password);
 
-        if (password.equals(passwordConfirm)) {
-            // get hash of password using sha-512
-            password = Hash.encrypt512(password);
-            passwordConfirm = "";
-            http_request(username, password);
-
-            return true;
-        } else {
-            System.out.println("Passwords do not match!");
-            return false;
-        }
+        return http_request(username, password);
     }
 
     private static boolean http_request(String username, String password) throws IOException {
@@ -86,7 +75,7 @@ public class Register {
         }
 
         if (result.equals("1")) {
-            System.out.println("Registration successful!\n");
+            System.out.println("Login successful!\n");
             return true;
         } else {
             System.out.println("Something went wrong... oops!\n");
